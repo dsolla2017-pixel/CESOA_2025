@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch | A Inovação Tecnológica do Hacker - Auditoria de TI</title>
+    <meta name="description" content="Pitch MBA Auditoria - A Inovação Tecnológica do Hacker: O Novo Desafio da Auditoria em TI. Por Diogo Grawingholt.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #0047AB;
+            --primary-light: #E8F0FE;
+            --accent: #00C853;
+            --dark: #1A1A2E;
+            --gray: #6B7280;
+            --light: #F8FAFC;
+            --white: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--dark) 0%, #16213E 50%, #0F3460 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(0,200,83,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(0,71,171,0.15) 0%, transparent 50%);
+        }
+        
+        .hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0,200,83,0.15);
+            border: 1px solid rgba(0,200,83,0.3);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span { color: var(--accent); }
+        
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+        
+        .author-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 12px 24px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .author-photo {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            object-fit: cover;
+        }
+        
+        .author-info { text-align: left; }
+        .author-info h3 { font-size: 1rem; font-weight: 600; }
+        .author-info p { font-size: 0.8rem; opacity: 0.7; margin: 0; }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+        
+        .video-section {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            margin-bottom: 48px;
+        }
+        
+        .video-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .video-section .subtitle {
+            color: var(--gray);
+            margin-bottom: 32px;
+            font-size: 0.95rem;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        
+        .video-wrapper iframe, .video-wrapper video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+        
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        
+        .highlight-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        
+        .highlight-card .icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+        
+        .highlight-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+        .highlight-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.5; }
+        
+        .icon-problem { background: #FEE2E2; }
+        .icon-solution { background: #D1FAE5; }
+        .icon-future { background: #DBEAFE; }
+        .icon-data { background: #FEF3C7; }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            margin-bottom: 48px;
+            text-align: center;
+        }
+        
+        .stat-item h4 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        
+        .stat-item p { font-size: 0.8rem; color: var(--gray); }
+        
+        .cta-section {
+            text-align: center;
+            padding: 48px;
+            background: linear-gradient(135deg, var(--primary) 0%, #0F3460 100%);
+            border-radius: 24px;
+            color: white;
+        }
+        
+        .cta-section h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
+        .cta-section p { opacity: 0.85; margin-bottom: 24px; }
+        
+        .cta-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.2s;
+        }
+        
+        .cta-btn:hover { transform: scale(1.05); }
+        
+        footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+        
+        footer a { color: var(--primary); text-decoration: none; }
+        
+        @media (max-width: 768px) {
+            .hero { padding: 60px 20px; }
+            .video-section { padding: 24px; }
+            .container { padding: 32px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">MBA Auditoria | Modulo 3 | Descomplica</div>
+            <h1>A Inovacao Tecnologica do <span>Hacker</span></h1>
+            <p>O Novo Desafio da Auditoria em TI: como a inovacao do cibercrime exige uma reinvencao completa das praticas de auditoria e seguranca.</p>
+            <div class="author-card">
+                <img src="https://drive.google.com/thumbnail?id=1hJM7ZNGX90kuk9GygXQZRJ73uEY96oWK&sz=w200" alt="Diogo Grawingholt" class="author-photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 56 56%22><rect fill=%22%230047AB%22 width=%2256%22 height=%2256%22 rx=%2228%22/><text x=%2228%22 y=%2236%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2220%22>DG</text></svg>'">
+                <div class="author-info">
+                    <h3>Diogo Grawingholt</h3>
+                    <p>MBA Auditoria | GEGOD | CAIXA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="container">
+        <div class="stats-bar">
+            <div class="stat-item">
+                <h4>R$ 7,19M</h4>
+                <p>Custo medio por violacao</p>
+            </div>
+            <div class="stat-item">
+                <h4>+126%</h4>
+                <p>Crescimento deepfakes BR</p>
+            </div>
+            <div class="stat-item">
+                <h4>83%</h4>
+                <p>Empresas em risco critico</p>
+            </div>
+            <div class="stat-item">
+                <h4>R$ 50M</h4>
+                <p>Multa maxima LGPD</p>
+            </div>
+        </div>
+        
+        <section class="video-section">
+            <h2>Assista ao Pitch Completo</h2>
+            <p class="subtitle">3 minutos de apresentacao com narracao profissional e slides visuais.</p>
+            <div class="video-wrapper">
+                <iframe src="https://drive.google.com/file/d/1mTL8l2jeF5rjG9M4jO2i_tODW-f1FjG1/preview" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </section>
+        
+        <div class="highlights">
+            <div class="highlight-card">
+                <div class="icon icon-problem">&#9888;</div>
+                <h3>O Problema</h3>
+                <p>Hackers operam como startups. Ransomware as a Service, ataques em horas, auditorias periodicas obsoletas. O cibercrime inova mais rapido que as defesas.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="icon icon-data">&#128202;</div>
+                <h3>4 Vetores de Inovacao</h3>
+                <p>IA Ofensiva, Deepfakes em Tempo Real, Engenharia Social com IA e Ataques a propria IA corporativa por injecao de prompts.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="icon icon-solution">&#128737;</div>
+                <h3>A Solucao</h3>
+                <p>Auditoria Continua com Machine Learning, Frameworks COBIT + ISO 27001 + Zero Trust, e Cultura de Seguranca por Design com LGPD.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="icon icon-future">&#128640;</div>
+                <h3>O Futuro</h3>
+                <p>Auditoria preditiva com IA defensiva. PwC projeta auditorias 100% automatizadas ate 2027. Governanca de dados como vantagem competitiva.</p>
+            </div>
+        </div>
+        
+        <section class="cta-section">
+            <h2>Vamos Inovar na Defesa?</h2>
+            <p>Na guerra cibernetica, quem nao inova na defesa ja perdeu para a inovacao do ataque.</p>
+            <a href="https://gegodtransformacaodosdados.org/" class="cta-btn">Voltar ao Portfolio</a>
+        </section>
+    </div>
+    
+    <footer>
+        <p>Diogo Grawingholt | Gerencia Nacional de Governanca de Dados (GEGOD) | <a href="https://gegodtransformacaodosdados.org/">gegodtransformacaodosdados.org</a></p>
+        <p style="margin-top: 8px; opacity: 0.7;">Pitch produzido para avaliacao do Modulo 3 - MBA em Auditoria - Descomplica Faculdade Digital | 2026</p>
+    </footer>
+</body>
+</html>
