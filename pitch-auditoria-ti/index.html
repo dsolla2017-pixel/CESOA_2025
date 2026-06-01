@@ -3,318 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pitch | A Inovação Tecnológica do Hacker - Auditoria de TI</title>
-    <meta name="description" content="Pitch MBA Auditoria - A Inovação Tecnológica do Hacker: O Novo Desafio da Auditoria em TI. Por Diogo Grawingholt.">
+    <title>Pitch | A Inovacao Tecnologica do Hacker - Auditoria de TI | Diogo Grawingholt</title>
+    <meta name="description" content="Pitch MBA Auditoria - A Inovacao Tecnologica do Hacker: O Novo Desafio da Auditoria em TI. Modulo 3 - Descomplica. Por Diogo Grawingholt.">
+    <meta name="author" content="Diogo Grawingholt">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --primary: #0047AB;
-            --primary-light: #E8F0FE;
-            --accent: #00C853;
-            --dark: #1A1A2E;
-            --gray: #6B7280;
-            --light: #F8FAFC;
-            --white: #FFFFFF;
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --primary:#0A2463;--primary-mid:#1E3A8A;--accent:#00C853;--accent-soft:#D1FAE5;
+            --dark:#0F172A;--gray:#64748B;--light:#F8FAFC;--white:#FFFFFF;
+            --card-shadow:0 4px 20px rgba(10,36,99,0.06);--radius:16px;
         }
+        body{font-family:'Inter',system-ui,sans-serif;background:var(--light);color:var(--dark);line-height:1.7;-webkit-font-smoothing:antialiased}
         
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
+        /* NAV FIXA */
+        .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);padding:12px 24px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+        .nav a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.75rem;font-weight:500;padding:6px 14px;border-radius:20px;transition:all 0.2s;letter-spacing:0.3px}
+        .nav a:hover,.nav a.active{color:#fff;background:rgba(0,200,83,0.15);border:1px solid rgba(0,200,83,0.3)}
         
-        .hero {
-            background: linear-gradient(135deg, var(--dark) 0%, #16213E 50%, #0F3460 100%);
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+        /* HERO */
+        .hero{background:linear-gradient(160deg,var(--dark) 0%,#1E293B 40%,var(--primary) 100%);color:#fff;padding:140px 24px 80px;text-align:center;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(0,200,83,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(10,36,99,0.2) 0%,transparent 50%)}
+        .hero-content{position:relative;z-index:1;max-width:800px;margin:0 auto}
+        .hero-badge{display:inline-block;background:rgba(0,200,83,0.12);border:1px solid rgba(0,200,83,0.25);color:var(--accent);padding:6px 18px;border-radius:24px;font-size:0.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:28px}
+        .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;margin-bottom:20px;line-height:1.15;letter-spacing:-0.5px}
+        .hero h1 span{background:linear-gradient(135deg,var(--accent),#4ADE80);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero-sub{font-size:1.05rem;opacity:0.8;max-width:580px;margin:0 auto 36px;font-weight:300}
+        .author-card{display:inline-flex;align-items:center;gap:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);padding:14px 28px;backdrop-filter:blur(8px)}
+        .author-photo{width:52px;height:52px;border-radius:50%;border:2px solid var(--accent);object-fit:cover}
+        .author-info{text-align:left}
+        .author-info h3{font-size:0.95rem;font-weight:600}
+        .author-info p{font-size:0.75rem;opacity:0.65;margin:0}
         
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(0,200,83,0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 80%, rgba(0,71,171,0.15) 0%, transparent 50%);
-        }
+        /* CONTAINER */
+        .container{max-width:1080px;margin:0 auto;padding:64px 24px}
+        section{scroll-margin-top:60px}
         
-        .hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        /* SECTION TITLES */
+        .section-header{text-align:center;margin-bottom:48px}
+        .section-header h2{font-size:1.8rem;font-weight:800;color:var(--dark);margin-bottom:8px;letter-spacing:-0.3px}
+        .section-header p{color:var(--gray);font-size:0.92rem;max-width:560px;margin:0 auto}
         
-        .hero-badge {
-            display: inline-block;
-            background: rgba(0,200,83,0.15);
-            border: 1px solid rgba(0,200,83,0.3);
-            color: var(--accent);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            margin-bottom: 24px;
-        }
+        /* STATS */
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-bottom:64px}
+        .stat-card{background:var(--white);border-radius:var(--radius);padding:28px 20px;text-align:center;box-shadow:var(--card-shadow);border:1px solid rgba(0,0,0,0.04);transition:transform 0.2s}
+        .stat-card:hover{transform:translateY(-3px)}
+        .stat-card h4{font-size:1.6rem;font-weight:900;color:var(--primary);margin-bottom:4px}
+        .stat-card p{font-size:0.75rem;color:var(--gray);line-height:1.4}
+        .stat-card .source{font-size:0.65rem;color:var(--gray);opacity:0.7;margin-top:8px;font-style:italic}
         
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.2rem);
-            font-weight: 800;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
+        /* VIDEO */
+        .video-section{background:var(--white);border-radius:20px;padding:48px;box-shadow:var(--card-shadow);margin-bottom:64px}
+        .video-wrapper{position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 12px 40px rgba(0,0,0,0.15)}
+        .video-wrapper video,.video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
         
-        .hero h1 span { color: var(--accent); }
+        /* TIMELINE */
+        .timeline{position:relative;padding-left:40px;margin-bottom:64px}
+        .timeline::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--primary))}
+        .timeline-item{position:relative;margin-bottom:36px;padding:24px 28px;background:var(--white);border-radius:var(--radius);box-shadow:var(--card-shadow);border-left:3px solid var(--accent)}
+        .timeline-item::before{content:'';position:absolute;left:-33px;top:28px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--light)}
+        .timeline-item .slide-num{font-size:0.65rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+        .timeline-item h3{font-size:1.05rem;font-weight:700;color:var(--dark);margin-bottom:8px}
+        .timeline-item p{font-size:0.88rem;color:var(--gray);line-height:1.6}
+        .timeline-item .ref{font-size:0.72rem;color:var(--primary-mid);margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.05);font-style:italic}
         
-        .hero p {
-            font-size: 1.1rem;
-            opacity: 0.85;
-            max-width: 600px;
-            margin: 0 auto 32px;
-        }
+        /* HIGHLIGHTS GRID */
+        .highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-bottom:64px}
+        .highlight-card{background:var(--white);border-radius:var(--radius);padding:28px;box-shadow:var(--card-shadow);border:1px solid rgba(0,0,0,0.04);transition:transform 0.2s,box-shadow 0.2s}
+        .highlight-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.08)}
+        .highlight-card .icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:14px}
+        .highlight-card h3{font-size:0.95rem;font-weight:700;margin-bottom:6px}
+        .highlight-card p{color:var(--gray);font-size:0.82rem;line-height:1.5}
+        .ic-red{background:#FEE2E2}.ic-green{background:#D1FAE5}.ic-blue{background:#DBEAFE}.ic-yellow{background:#FEF3C7}.ic-purple{background:#EDE9FE}
         
-        .author-card {
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 16px;
-            padding: 12px 24px;
-            backdrop-filter: blur(10px);
-        }
+        /* FRAMEWORKS */
+        .frameworks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:64px}
+        .fw-card{background:var(--white);border-radius:12px;padding:24px;text-align:center;box-shadow:var(--card-shadow);border-top:3px solid var(--primary)}
+        .fw-card h4{font-size:0.85rem;font-weight:700;color:var(--primary);margin-bottom:6px}
+        .fw-card p{font-size:0.75rem;color:var(--gray)}
         
-        .author-photo {
-            width: 56px; height: 56px;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            object-fit: cover;
-        }
+        /* REFERENCES */
+        .references{background:var(--white);border-radius:var(--radius);padding:40px;box-shadow:var(--card-shadow);margin-bottom:64px}
+        .references h2{font-size:1.3rem;font-weight:800;margin-bottom:24px;color:var(--dark)}
+        .ref-list{list-style:none;counter-reset:ref-counter}
+        .ref-list li{counter-increment:ref-counter;padding:12px 0;border-bottom:1px solid rgba(0,0,0,0.04);font-size:0.8rem;color:var(--gray);line-height:1.6;padding-left:32px;position:relative}
+        .ref-list li::before{content:counter(ref-counter) ".";position:absolute;left:0;font-weight:700;color:var(--primary)}
+        .ref-list li:last-child{border-bottom:none}
+        .ref-list .author{font-weight:600;color:var(--dark)}
         
-        .author-info { text-align: left; }
-        .author-info h3 { font-size: 1rem; font-weight: 600; }
-        .author-info p { font-size: 0.8rem; opacity: 0.7; margin: 0; }
+        /* CTA */
+        .cta-section{text-align:center;padding:56px 40px;background:linear-gradient(135deg,var(--primary) 0%,var(--dark) 100%);border-radius:20px;color:#fff}
+        .cta-section h2{font-size:1.6rem;font-weight:800;margin-bottom:12px}
+        .cta-section p{opacity:0.8;margin-bottom:28px;font-size:0.95rem}
+        .cta-btn{display:inline-block;background:var(--accent);color:var(--dark);padding:14px 36px;border-radius:12px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:transform 0.2s,box-shadow 0.2s}
+        .cta-btn:hover{transform:scale(1.04);box-shadow:0 8px 24px rgba(0,200,83,0.3)}
         
-        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+        /* FOOTER */
+        footer{text-align:center;padding:40px 24px;color:var(--gray);font-size:0.78rem}
+        footer a{color:var(--primary);text-decoration:none;font-weight:500}
         
-        .video-section {
-            background: var(--white);
-            border-radius: 24px;
-            padding: 48px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-            margin-bottom: 48px;
-        }
-        
-        .video-section h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--dark);
-        }
-        
-        .video-section .subtitle {
-            color: var(--gray);
-            margin-bottom: 32px;
-            font-size: 0.95rem;
-        }
-        
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #000;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-        }
-        
-        .video-wrapper iframe, .video-wrapper video {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: none;
-        }
-        
-        .highlights {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 48px;
-        }
-        
-        .highlight-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .highlight-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-        }
-        
-        .highlight-card .icon {
-            width: 48px; height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 16px;
-        }
-        
-        .highlight-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
-        .highlight-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.5; }
-        
-        .icon-problem { background: #FEE2E2; }
-        .icon-solution { background: #D1FAE5; }
-        .icon-future { background: #DBEAFE; }
-        .icon-data { background: #FEF3C7; }
-        
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-            background: var(--white);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-            margin-bottom: 48px;
-            text-align: center;
-        }
-        
-        .stat-item h4 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 4px;
-        }
-        
-        .stat-item p { font-size: 0.8rem; color: var(--gray); }
-        
-        .cta-section {
-            text-align: center;
-            padding: 48px;
-            background: linear-gradient(135deg, var(--primary) 0%, #0F3460 100%);
-            border-radius: 24px;
-            color: white;
-        }
-        
-        .cta-section h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
-        .cta-section p { opacity: 0.85; margin-bottom: 24px; }
-        
-        .cta-btn {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--dark);
-            padding: 14px 32px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: transform 0.2s;
-        }
-        
-        .cta-btn:hover { transform: scale(1.05); }
-        
-        footer {
-            text-align: center;
-            padding: 32px 20px;
-            color: var(--gray);
-            font-size: 0.85rem;
-        }
-        
-        footer a { color: var(--primary); text-decoration: none; }
-        
-        @media (max-width: 768px) {
-            .hero { padding: 60px 20px; }
-            .video-section { padding: 24px; }
-            .container { padding: 32px 16px; }
+        @media(max-width:768px){
+            .hero{padding:120px 20px 60px}
+            .video-section{padding:24px}
+            .container{padding:40px 16px}
+            .timeline{padding-left:32px}
+            .references{padding:24px}
+            .nav{gap:4px}
+            .nav a{font-size:0.68rem;padding:5px 10px}
         }
     </style>
 </head>
 <body>
-    <section class="hero">
+    <!-- ============================================================
+         Pagina do Pitch: A Inovacao Tecnologica do Hacker
+         Autor: Diogo Grawingholt
+         MBA Auditoria - Modulo 3 - Descomplica Faculdade Digital
+         Site: https://gegodtransformacaodosdados.org
+         ============================================================ -->
+    
+    <nav class="nav">
+        <a href="#inicio" class="active">Inicio</a>
+        <a href="#video">Video</a>
+        <a href="#timeline">Linha do Tempo</a>
+        <a href="#vetores">Vetores</a>
+        <a href="#frameworks">Frameworks</a>
+        <a href="#referencias">Referencias</a>
+    </nav>
+    
+    <section class="hero" id="inicio">
         <div class="hero-content">
-            <div class="hero-badge">MBA Auditoria | Modulo 3 | Descomplica</div>
+            <div class="hero-badge">MBA Auditoria | Modulo 3 | Descomplica 2026</div>
             <h1>A Inovacao Tecnologica do <span>Hacker</span></h1>
-            <p>O Novo Desafio da Auditoria em TI: como a inovacao do cibercrime exige uma reinvencao completa das praticas de auditoria e seguranca.</p>
+            <p class="hero-sub">O Novo Desafio da Auditoria em TI. Uma analise sobre como a inovacao do cibercrime exige a reinvencao completa das praticas de auditoria e seguranca da informacao.</p>
             <div class="author-card">
-                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663233141751/OqyCrBVQhAOkahqF.png" alt="Diogo Grawingholt" class="author-photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 56 56%22><rect fill=%22%230047AB%22 width=%2256%22 height=%2256%22 rx=%2228%22/><text x=%2228%22 y=%2236%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2220%22>DG</text></svg>'">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663233141751/OqyCrBVQhAOkahqF.png" alt="Diogo Grawingholt" class="author-photo">
                 <div class="author-info">
                     <h3>Diogo Grawingholt</h3>
-                    <p>MBA Auditoria | GEGOD | CAIXA</p>
+                    <p>Gestor de TI | Especialista IA | GEGOD | CAIXA</p>
                 </div>
             </div>
         </div>
     </section>
     
     <div class="container">
-        <div class="stats-bar">
-            <div class="stat-item">
-                <h4>R$ 7,19M</h4>
-                <p>Custo medio por violacao</p>
-            </div>
-            <div class="stat-item">
-                <h4>+126%</h4>
-                <p>Crescimento deepfakes BR</p>
-            </div>
-            <div class="stat-item">
-                <h4>83%</h4>
-                <p>Empresas em risco critico</p>
-            </div>
-            <div class="stat-item">
-                <h4>R$ 50M</h4>
-                <p>Multa maxima LGPD</p>
-            </div>
-        </div>
         
-        <section class="video-section">
-            <h2>Assista ao Pitch Completo</h2>
-            <p class="subtitle">3 minutos de apresentacao com narracao profissional e slides visuais.</p>
-            <div class="video-wrapper">
-                <iframe src="https://drive.google.com/file/d/1mTL8l2jeF5rjG9M4jO2i_tODW-f1FjG1/preview" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <!-- METRICAS DE IMPACTO -->
+        <section id="metricas">
+            <div class="section-header">
+                <h2>Metricas de Impacto Global</h2>
+                <p>Dados que evidenciam a urgencia da transformacao na auditoria de TI frente ao cibercrime.</p>
+            </div>
+            <div class="stats">
+                <div class="stat-card">
+                    <h4>R$ 7,19M</h4>
+                    <p>Custo medio por violacao de dados no Brasil</p>
+                    <span class="source">IBM, 2025</span>
+                </div>
+                <div class="stat-card">
+                    <h4>+6,5%</h4>
+                    <p>Crescimento anual do custo de violacoes</p>
+                    <span class="source">IBM Cost of Data Breach, 2025</span>
+                </div>
+                <div class="stat-card">
+                    <h4>+126%</h4>
+                    <p>Crescimento de deepfakes no Brasil</p>
+                    <span class="source">Grand View Research, 2025</span>
+                </div>
+                <div class="stat-card">
+                    <h4>83%</h4>
+                    <p>Empresas com dificuldade em equilibrar seguranca e inovacao</p>
+                    <span class="source">ISACA, 2025</span>
+                </div>
+                <div class="stat-card">
+                    <h4>R$ 50M</h4>
+                    <p>Multa maxima por infracao LGPD (ANPD)</p>
+                    <span class="source">Lei 13.709/2018, Art. 52</span>
+                </div>
+                <div class="stat-card">
+                    <h4>72%</h4>
+                    <p>Aumento de ataques assistidos por IA em 2025</p>
+                    <span class="source">Total Assure, 2026</span>
+                </div>
             </div>
         </section>
         
-        <div class="highlights">
-            <div class="highlight-card">
-                <div class="icon icon-problem">&#9888;</div>
-                <h3>O Problema</h3>
-                <p>Hackers operam como startups. Ransomware as a Service, ataques em horas, auditorias periodicas obsoletas. O cibercrime inova mais rapido que as defesas.</p>
+        <!-- VIDEO -->
+        <section id="video">
+            <div class="section-header">
+                <h2>Assista ao Pitch Completo</h2>
+                <p>3 minutos de apresentacao com narracao profissional, dados de mercado e proposta de solucao.</p>
             </div>
-            <div class="highlight-card">
-                <div class="icon icon-data">&#128202;</div>
-                <h3>4 Vetores de Inovacao</h3>
-                <p>IA Ofensiva, Deepfakes em Tempo Real, Engenharia Social com IA e Ataques a propria IA corporativa por injecao de prompts.</p>
+            <div class="video-section">
+                <div class="video-wrapper">
+                    <video controls preload="metadata" style="background:#000;">
+                        <source src="video.mp4" type="video/mp4">
+                        Seu navegador nao suporta video HTML5. <a href="https://drive.google.com/file/d/1mTL8l2jeF5rjG9M4jO2i_tODW-f1FjG1/view">Clique aqui para assistir.</a>
+                    </video>
+                </div>
             </div>
-            <div class="highlight-card">
-                <div class="icon icon-solution">&#128737;</div>
-                <h3>A Solucao</h3>
-                <p>Auditoria Continua com Machine Learning, Frameworks COBIT + ISO 27001 + Zero Trust, e Cultura de Seguranca por Design com LGPD.</p>
-            </div>
-            <div class="highlight-card">
-                <div class="icon icon-future">&#128640;</div>
-                <h3>O Futuro</h3>
-                <p>Auditoria preditiva com IA defensiva. PwC projeta auditorias 100% automatizadas ate 2027. Governanca de dados como vantagem competitiva.</p>
-            </div>
-        </div>
+        </section>
         
+        <!-- LINHA DO TEMPO DOS SLIDES -->
+        <section id="timeline">
+            <div class="section-header">
+                <h2>Linha do Tempo da Apresentacao</h2>
+                <p>Cada slide do pitch com seu embasamento academico e dados de referencia.</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="slide-num">Slide 01 - Abertura</div>
+                    <h3>Contextualizacao do Desafio</h3>
+                    <p>Apresentacao do tema central: a inovacao tecnologica do hacker como vetor de transformacao forcada na auditoria de TI. O cenario atual exige que auditores dominem tecnologias emergentes para proteger ativos digitais.</p>
+                    <div class="ref">ISACA. <em>State of Cybersecurity 2025</em>. Information Systems Audit and Control Association, 2025.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="slide-num">Slide 02 - Dados e Impacto Financeiro</div>
+                    <h3>O Custo Real do Cibercrime</h3>
+                    <p>Violacoes de dados custam em media R$ 7,19 milhoes no Brasil, com crescimento de 6,5% ao ano. 83% das organizacoes enfrentam dificuldade critica em equilibrar seguranca e inovacao tecnologica.</p>
+                    <div class="ref">IBM Security. <em>Cost of a Data Breach Report 2025</em>. Armonk: IBM Corporation, 2025. p. 16.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="slide-num">Slide 03 - Diagnostico do Problema</div>
+                    <h3>Hackers Operam como Startups</h3>
+                    <p>Ransomware as a Service (RaaS) democratiza o cibercrime. Ataques executados em horas tornam auditorias periodicas obsoletas. O modelo de negocio do cibercrime supera a velocidade de resposta corporativa.</p>
+                    <div class="ref">FISHER, T. Vendor communication themes in darknet Ransomware-as-a-Service advertisements. <em>Computers in Human Behavior</em>, v. 155, 2025. DOI: 10.1016/j.chb.2025.108184.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="slide-num">Slide 04 - Vetores de Inovacao</div>
+                    <h3>4 Pilares da Inovacao Ofensiva</h3>
+                    <p>IA Ofensiva com agentes autonomos, Deepfakes em tempo real (+126% no Brasil), Engenharia Social turbinada por IA (phishing +1.265%), e Ataques a modelos de IA corporativos via injecao de prompt.</p>
+                    <div class="ref">TOTAL ASSURE. <em>AI Cybersecurity Statistics 2025: Comprehensive Data Analysis</em>. Total Assure Research, jan. 2026.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="slide-num">Slide 05 - Estudo de Caso Real</div>
+                    <h3>VoidLink: Virus Criado por IA</h3>
+                    <p>Em janeiro de 2026, pesquisadores identificaram o VoidLink, malware com codigo polimorfico gerado inteiramente por inteligencia artificial. Opera de forma autonoma, sem controle humano, e escapa de antivirus tradicionais.</p>
+                    <div class="ref">AKAMAI. <em>Ransomware SOTI Report 2025: Trends and Emerging Threats</em>. Cambridge: Akamai Technologies, abr. 2025.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="slide-num">Slide 06 - Estrategia de Defesa</div>
+                    <h3>Auditoria Continua com IA Defensiva</h3>
+                    <p>Proposta de auditoria continua com monitoramento em tempo real via Machine Learning. Integracao de COBIT 2019, ISO 27001:2022 e arquitetura Zero Trust. Cultura de seguranca por design desde a concepcao dos sistemas.</p>
+                    <div class="ref">NIST. <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</em>. Gaithersburg: National Institute of Standards and Technology, 2023. NIST AI 100-1.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="slide-num">Slide 07 - Futuro da Auditoria</div>
+                    <h3>Auditoria Preditiva e Automatizada</h3>
+                    <p>PwC projeta auditoria end-to-end automatizada por IA ate 2026-2027. ANPD impoe multas de ate R$ 50 milhoes por infracao. Governanca de dados e algoritmos como vantagem competitiva estrategica.</p>
+                    <div class="ref">PwC. End-to-end AI audit automation expected within 2026. <em>Accounting Today</em>, 28 out. 2025. Disponivel em: accountingtoday.com.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="slide-num">Slide 08 - Conclusao</div>
+                    <h3>Inovar na Defesa ou Perder para o Ataque</h3>
+                    <p>Na guerra cibernetica, quem nao inova na defesa ja perdeu para a inovacao do ataque. Investir em IA defensiva e cultura de seguranca e sobrevivencia institucional.</p>
+                    <div class="ref">OFILI, B. T.; ERHABOR, E. O. Enhancing federal cloud security with AI: Zero Trust, threat intelligence, and CISA compliance. <em>World Journal of Advanced Research</em>, 2025.</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- VETORES DE INOVACAO -->
+        <section id="vetores">
+            <div class="section-header">
+                <h2>Vetores de Inovacao do Hacker Moderno</h2>
+                <p>Os quatro pilares tecnologicos que transformaram o cibercrime em industria.</p>
+            </div>
+            <div class="highlights">
+                <div class="highlight-card">
+                    <div class="icon ic-red">&#9888;</div>
+                    <h3>IA Ofensiva</h3>
+                    <p>Agentes autonomos que exploram vulnerabilidades sem intervencao humana. Ataques assistidos por IA cresceram 72% em 2025.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="icon ic-purple">&#127917;</div>
+                    <h3>Deepfakes em Tempo Real</h3>
+                    <p>Mercado de deepfake IA no Brasil projeta US$ 330M ate 2030 (CAGR 45,3%). Fraudes com video e voz sintetica em alta.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="icon ic-yellow">&#128236;</div>
+                    <h3>Engenharia Social com IA</h3>
+                    <p>Phishing gerado por IA cresceu 1.265%. Mensagens personalizadas que enganam ate profissionais de seguranca.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="icon ic-blue">&#129302;</div>
+                    <h3>Ataques a Modelos de IA</h3>
+                    <p>Injecao de prompt, envenenamento de dados e exfiltracao de modelos corporativos. Nova fronteira do cibercrime.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FRAMEWORKS -->
+        <section id="frameworks">
+            <div class="section-header">
+                <h2>Frameworks de Referencia</h2>
+                <p>Arcabouco normativo e tecnico que sustenta a proposta de auditoria continua.</p>
+            </div>
+            <div class="frameworks">
+                <div class="fw-card">
+                    <h4>COBIT 2019</h4>
+                    <p>Governanca e gestao de TI corporativa. 40 objetivos de gestao. ISACA.</p>
+                </div>
+                <div class="fw-card">
+                    <h4>ISO 27001:2022</h4>
+                    <p>Sistema de gestao de seguranca da informacao. Monitoramento continuo. Anexo A 8.16.</p>
+                </div>
+                <div class="fw-card">
+                    <h4>NIST AI RMF 1.0</h4>
+                    <p>Framework de gestao de riscos de IA. Governanca, mapeamento, medicao e gerenciamento.</p>
+                </div>
+                <div class="fw-card">
+                    <h4>Zero Trust (NIST 800-207)</h4>
+                    <p>Arquitetura de confianca zero. Verificacao continua. Microsegmentacao.</p>
+                </div>
+                <div class="fw-card">
+                    <h4>LGPD (Lei 13.709/2018)</h4>
+                    <p>Protecao de dados pessoais. ANPD como autoridade fiscalizadora. Multas ate R$ 50M.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- REFERENCIAS ACADEMICAS -->
+        <section id="referencias">
+            <div class="references">
+                <h2>Referencias Bibliograficas (ABNT)</h2>
+                <ol class="ref-list">
+                    <li><span class="author">IBM SECURITY.</span> <em>Cost of a Data Breach Report 2025</em>. Armonk: IBM Corporation, 2025. Disponivel em: https://www.ibm.com/reports/data-breach. Acesso em: 30 mai. 2026.</li>
+                    <li><span class="author">ISACA.</span> <em>State of Cybersecurity 2025: Global Update on Workforce Efforts, Resources and Cyberoperations</em>. Schaumburg: ISACA, 2025.</li>
+                    <li><span class="author">FISHER, T.</span> Vendor communication themes in darknet Ransomware-as-a-Service advertisements. <em>Computers in Human Behavior</em>, v. 155, p. 108184, 2025. DOI: 10.1016/j.chb.2025.108184.</li>
+                    <li><span class="author">TOTAL ASSURE.</span> AI Cybersecurity Statistics in 2025: Comprehensive Data Analysis. <em>Total Assure Research</em>, jan. 2026. Disponivel em: https://totalassure.com/blog/ai-cybersecurity-stats. Acesso em: 30 mai. 2026.</li>
+                    <li><span class="author">GRAND VIEW RESEARCH.</span> <em>Brazil Deepfake AI Market Size and Outlook, 2025-2030</em>. San Francisco: Grand View Research, 2025.</li>
+                    <li><span class="author">AKAMAI.</span> <em>Ransomware SOTI Report 2025: Trends and Emerging Threats</em>. Cambridge: Akamai Technologies, abr. 2025.</li>
+                    <li><span class="author">NIST.</span> <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</em>. Gaithersburg: National Institute of Standards and Technology, 2023. NIST AI 100-1.</li>
+                    <li><span class="author">ISACA.</span> <em>COBIT 2019 Framework: Governance and Management Objectives</em>. Schaumburg: ISACA, 2019.</li>
+                    <li><span class="author">ISO/IEC.</span> <em>ISO/IEC 27001:2022 - Information security, cybersecurity and privacy protection</em>. Geneva: International Organization for Standardization, 2022.</li>
+                    <li><span class="author">ROSE, S.; BORCHERT, O.; MITCHELL, S.; CONNELLY, S.</span> <em>Zero Trust Architecture</em>. Gaithersburg: NIST, 2020. NIST Special Publication 800-207.</li>
+                    <li><span class="author">BRASIL.</span> Lei n. 13.709, de 14 de agosto de 2018. Lei Geral de Protecao de Dados Pessoais (LGPD). <em>Diario Oficial da Uniao</em>, Brasilia, DF, 15 ago. 2018.</li>
+                    <li><span class="author">PwC.</span> End-to-end AI audit automation expected within 2026. <em>Accounting Today</em>, 28 out. 2025. Disponivel em: https://www.accountingtoday.com. Acesso em: 30 mai. 2026.</li>
+                    <li><span class="author">OFILI, B. T.; ERHABOR, E. O.; OBASUYI, O. T.</span> Enhancing federal cloud security with AI: Zero Trust, threat intelligence, and CISA compliance. <em>World Journal of Advanced Research</em>, v. 8, n. 2, 2025.</li>
+                    <li><span class="author">RODRIGUES, G. A. P.; SERRANO, A. L. M.; VERGARA, G. F.</span> Impact, compliance, and countermeasures in relation to data breaches in publicly traded US companies. <em>Future Internet</em>, v. 16, n. 6, p. 201, 2024.</li>
+                    <li><span class="author">DE HAES, S.; VAN GREMBERGEN, W.; JOSHI, A.</span> COBIT as a Framework for Enterprise Governance of IT. In: <em>Enterprise Governance of Information Technology</em>. Cham: Springer, 2019. p. 103-128.</li>
+                    <li><span class="author">CAMPBELL, R.</span> Zero Trust for AI Systems: A Reference Architecture and Assurance Framework. <em>Preprints</em>, 2026. DOI: 10.20944/preprints202602.0085.</li>
+                </ol>
+            </div>
+        </section>
+        
+        <!-- CTA -->
         <section class="cta-section">
-            <h2>Vamos Inovar na Defesa?</h2>
+            <h2>Inovar na Defesa e Sobrevivencia</h2>
             <p>Na guerra cibernetica, quem nao inova na defesa ja perdeu para a inovacao do ataque.</p>
-            <a href="https://gegodtransformacaodosdados.org/" class="cta-btn">Voltar ao Portfolio</a>
+            <a href="https://gegodtransformacaodosdados.org/" class="cta-btn">Voltar ao Portfolio GEGOD</a>
         </section>
     </div>
     
     <footer>
-        <p>Diogo Grawingholt | Gerencia Nacional de Governanca de Dados (GEGOD) | <a href="https://gegodtransformacaodosdados.org/">gegodtransformacaodosdados.org</a></p>
-        <p style="margin-top: 8px; opacity: 0.7;">Pitch produzido para avaliacao do Modulo 3 - MBA em Auditoria - Descomplica Faculdade Digital | 2026</p>
+        <p><strong>Diogo Grawingholt</strong> | Gerencia Nacional de Governanca de Dados (GEGOD) | CAIXA Economica Federal</p>
+        <p style="margin-top:6px">Pitch produzido para avaliacao do Modulo 3 - MBA em Auditoria - Descomplica Faculdade Digital | Maio 2026</p>
+        <p style="margin-top:6px"><a href="https://gegodtransformacaodosdados.org/">gegodtransformacaodosdados.org</a></p>
     </footer>
+    
+    <!-- Smooth scroll e nav active state -->
+    <script>
+        document.querySelectorAll('.nav a').forEach(a=>{
+            a.addEventListener('click',e=>{
+                document.querySelectorAll('.nav a').forEach(x=>x.classList.remove('active'));
+                a.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
