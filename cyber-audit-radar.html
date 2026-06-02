@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Audit Radar | Diagnostico de Risco Hacker para Auditoria de TI</title>
+    <meta name="description" content="Plataforma de diagnostico de riscos ciberneticos para auditores de TI. Avalie maturidade, identifique vulnerabilidades e gere relatorios de auditoria.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #06b6d4;
+            --accent-dark: #0891b2;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --surface: #1e293b;
+            --surface-light: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            --gradient-dark: linear-gradient(135deg, #0f172a, #1e293b);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+            padding: 1rem 2rem;
+        }
+        nav .nav-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        nav .logo {
+            font-weight: 800; font-size: 1.1rem;
+            background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        nav .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        nav .nav-links a {
+            color: var(--text-muted); text-decoration: none; font-size: 0.85rem;
+            font-weight: 500; transition: color 0.3s;
+        }
+        nav .nav-links a:hover { color: var(--accent); }
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 6rem 2rem 4rem;
+            background: radial-gradient(ellipse at 30% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+            position: relative;
+        }
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 60 0 L 0 0 0 60' fill='none' stroke='rgba(6,182,212,0.04)' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grid)'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        .hero-content { max-width: 900px; text-align: center; position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 50px; padding: 0.5rem 1.2rem; margin-bottom: 2rem;
+            font-size: 0.8rem; color: var(--accent); font-weight: 500;
+        }
+        .hero-badge::before { content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
+            line-height: 1.1; margin-bottom: 1.5rem;
+        }
+        .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 2.5rem; }
+        .hero-author {
+            display: flex; align-items: center; gap: 1rem; justify-content: center;
+            margin-top: 2rem;
+        }
+        .hero-author img {
+            width: 56px; height: 56px; border-radius: 50%;
+            border: 2px solid var(--accent); object-fit: cover;
+        }
+        .hero-author-info { text-align: left; }
+        .hero-author-info strong { font-size: 0.95rem; display: block; }
+        .hero-author-info span { font-size: 0.8rem; color: var(--text-muted); }
+        /* SECTIONS */
+        section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-label {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px;
+            color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800;
+            margin-bottom: 1rem; line-height: 1.2;
+        }
+        .section-desc { color: var(--text-muted); font-size: 1rem; max-width: 700px; margin-bottom: 3rem; }
+        /* METRICS */
+        .metrics-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem; margin: 3rem 0;
+        }
+        .metric-card {
+            background: var(--surface); border: 1px solid rgba(6, 182, 212, 0.1);
+            border-radius: 16px; padding: 1.8rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .metric-card:hover { transform: translateY(-4px); border-color: rgba(6, 182, 212, 0.4); }
+        .metric-value {
+            font-size: 2.2rem; font-weight: 900;
+            background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .metric-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+        .metric-source { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.8rem; opacity: 0.7; font-style: italic; }
+        /* PROBLEM */
+        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .problem-card {
+            background: var(--surface); border-radius: 16px; padding: 2rem;
+            border-left: 4px solid var(--danger);
+            transition: transform 0.3s;
+        }
+        .problem-card:hover { transform: translateY(-3px); }
+        .problem-card h3 { font-size: 1.1rem; margin-bottom: 0.8rem; font-weight: 700; }
+        .problem-card p { font-size: 0.9rem; color: var(--text-muted); }
+        /* SOLUTION */
+        .solution-box {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 20px; padding: 3rem; margin: 2rem 0;
+        }
+        .solution-box h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
+        .solution-box p { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.5rem; }
+        /* FEATURES */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem; margin-top: 2rem;
+        }
+        .feature-card {
+            background: var(--surface); border-radius: 16px; padding: 2rem;
+            border: 1px solid rgba(6, 182, 212, 0.08);
+            transition: all 0.3s;
+        }
+        .feature-card:hover { border-color: rgba(6, 182, 212, 0.3); transform: translateY(-3px); }
+        .feature-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            background: rgba(6, 182, 212, 0.1); display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; margin-bottom: 1rem;
+        }
+        .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .feature-card p { font-size: 0.85rem; color: var(--text-muted); }
+        /* JOURNEY */
+        .journey-steps { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+        .journey-step {
+            display: flex; gap: 1.5rem; align-items: flex-start;
+            background: var(--surface); border-radius: 16px; padding: 1.8rem;
+            border: 1px solid rgba(6, 182, 212, 0.08);
+        }
+        .journey-step-number {
+            min-width: 44px; height: 44px; border-radius: 12px;
+            background: var(--gradient); display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1.1rem;
+        }
+        .journey-step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .journey-step p { font-size: 0.85rem; color: var(--text-muted); }
+        /* TECH */
+        .tech-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem; margin-top: 2rem;
+        }
+        .tech-card {
+            background: var(--surface); border-radius: 16px; padding: 1.8rem;
+            border: 1px solid rgba(6, 182, 212, 0.08);
+        }
+        .tech-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--accent); }
+        .tech-card ul { list-style: none; }
+        .tech-card ul li {
+            font-size: 0.85rem; color: var(--text-muted); padding: 0.3rem 0;
+            padding-left: 1.2rem; position: relative;
+        }
+        .tech-card ul li::before {
+            content: ''; position: absolute; left: 0; top: 50%;
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent); transform: translateY(-50%);
+        }
+        /* KPIs */
+        .kpi-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem; margin-top: 2rem;
+        }
+        .kpi-item {
+            background: var(--surface); border-radius: 12px; padding: 1.5rem;
+            border-left: 3px solid var(--accent);
+        }
+        .kpi-item h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .kpi-item p { font-size: 0.8rem; color: var(--text-muted); }
+        /* RISKS */
+        .risks-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem; margin-top: 2rem;
+        }
+        .risk-card {
+            background: var(--surface); border-radius: 16px; padding: 1.8rem;
+            border-top: 3px solid var(--warning);
+        }
+        .risk-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .risk-card p { font-size: 0.85rem; color: var(--text-muted); }
+        /* SLIDES */
+        .slides-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem; margin-top: 2rem;
+        }
+        .slide-item {
+            background: var(--surface); border-radius: 12px; padding: 1.5rem;
+            border: 1px solid rgba(6, 182, 212, 0.08);
+            display: flex; gap: 1rem; align-items: flex-start;
+        }
+        .slide-num {
+            min-width: 32px; height: 32px; border-radius: 8px;
+            background: var(--gradient); display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.8rem;
+        }
+        .slide-item h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .slide-item p { font-size: 0.8rem; color: var(--text-muted); }
+        /* VIDEO */
+        .video-section {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.03), rgba(139, 92, 246, 0.03));
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            border-radius: 24px; padding: 3rem; margin: 3rem 0; text-align: center;
+        }
+        .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0;
+            border-radius: 16px; overflow: hidden; margin-top: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        .video-wrapper iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+        }
+        /* REFERENCES */
+        .references { margin-top: 3rem; }
+        .references h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .ref-list { list-style: none; counter-reset: ref; }
+        .ref-list li {
+            counter-increment: ref; padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.82rem; color: var(--text-muted);
+            padding-left: 2.5rem; position: relative;
+        }
+        .ref-list li::before {
+            content: '[' counter(ref) ']'; position: absolute; left: 0;
+            color: var(--accent); font-weight: 600; font-family: 'JetBrains Mono', monospace;
+        }
+        /* FOOTER */
+        footer {
+            text-align: center; padding: 3rem 2rem;
+            border-top: 1px solid rgba(6, 182, 212, 0.1);
+            font-size: 0.8rem; color: var(--text-muted);
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav .nav-links { display: none; }
+            .hero { padding: 5rem 1.5rem 3rem; }
+            section { padding: 3rem 1.5rem; }
+            .solution-box { padding: 2rem; }
+            .video-section { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">Cyber Audit Radar</div>
+            <div class="nav-links">
+                <a href="#problema">Problema</a>
+                <a href="#solucao">Solucao</a>
+                <a href="#funcionalidades">Funcionalidades</a>
+                <a href="#jornada">Jornada</a>
+                <a href="#tecnologias">Tecnologias</a>
+                <a href="#kpis">KPIs</a>
+                <a href="#video">Video</a>
+                <a href="#referencias">Referencias</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Proposta de Solucao Digital</div>
+            <h1><span>Cyber Audit Radar</span><br>Diagnostico Inteligente de Risco Hacker</h1>
+            <p>Plataforma digital para auditores e gestores avaliarem, priorizarem e responderem aos novos riscos ciberneticos gerados pela evolucao tecnologica dos hackers.</p>
+            <div class="hero-author">
+                <img src="https://manus-storage.oss-cn-beijing.aliyuncs.com/user-upload/e7c4b3a3-e3f0-4e93-a682-0152db3e7a0f.png" alt="Diogo Solla">
+                <div class="hero-author-info">
+                    <strong>Diogo Solla</strong>
+                    <span>MBA em Auditoria | Modulo 3 - Auditoria de Sistemas e Riscos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- METRICAS -->
+    <section>
+        <div class="section-label">Cenario Atual</div>
+        <div class="section-title">Por que a Auditoria de TI precisa evoluir agora</div>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value">US$ 4.88M</div>
+                <div class="metric-label">Custo medio global de um data breach em 2024</div>
+                <div class="metric-source">IBM Cost of a Data Breach Report, 2024</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">71%</div>
+                <div class="metric-label">Organizacoes atingidas por ransomware em 2023</div>
+                <div class="metric-source">Sophos State of Ransomware, 2024</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">277 dias</div>
+                <div class="metric-label">Tempo medio para identificar e conter uma violacao</div>
+                <div class="metric-source">IBM Security, 2024</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">US$ 10.5T</div>
+                <div class="metric-label">Custo global do cibercrime projetado para 2025</div>
+                <div class="metric-source">Cybersecurity Ventures, 2023</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">95%</div>
+                <div class="metric-label">Violacoes causadas por erro humano</div>
+                <div class="metric-source">World Economic Forum, 2024</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">3.500%</div>
+                <div class="metric-label">Crescimento de ataques com IA generativa desde 2022</div>
+                <div class="metric-source">SlashNext Phishing Report, 2024</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">68%</div>
+                <div class="metric-label">Empresas sem plano de resposta a incidentes testado</div>
+                <div class="metric-source">ISACA State of Cybersecurity, 2024</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">R$ 6.75M</div>
+                <div class="metric-label">Custo medio de violacao no Brasil</div>
+                <div class="metric-source">IBM Brasil, 2024</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMA -->
+    <section id="problema">
+        <div class="section-label">Problema Identificado</div>
+        <div class="section-title">O Hacker Moderno Nao Invade Apenas Sistemas</div>
+        <div class="section-desc">Ele explora fragilidades humanas, processos mal controlados, baixa maturidade de seguranca, ausencia de monitoramento continuo e uso inadequado de tecnologia.</div>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <h3>Ransomware-as-a-Service</h3>
+                <p>Modelos de negocio criminosos que democratizam ataques sofisticados, permitindo que qualquer pessoa execute sequestros digitais sem conhecimento tecnico.</p>
+            </div>
+            <div class="problem-card">
+                <h3>IA Ofensiva e Deepfakes</h3>
+                <p>Inteligencia artificial usada para criar phishing hiperpersonalizado, deepfakes de executivos e engenharia social automatizada em escala.</p>
+            </div>
+            <div class="problem-card">
+                <h3>APIs Expostas e Shadow IT</h3>
+                <p>Superficie de ataque expandida por APIs mal documentadas, servicos nao autorizados e falta de visibilidade sobre ativos digitais.</p>
+            </div>
+            <div class="problem-card">
+                <h3>Auditoria Reativa</h3>
+                <p>Modelos tradicionais de auditoria que atuam apos o incidente, sem capacidade de prevencao, monitoramento continuo ou analise preditiva de riscos.</p>
+            </div>
+            <div class="problem-card">
+                <h3>Baixa Educacao Cibernetica</h3>
+                <p>Usuarios sem treinamento adequado, credenciais fracas, ausencia de MFA e dificuldade de transformar dados tecnicos em evidencias auditaveis.</p>
+            </div>
+            <div class="problem-card">
+                <h3>Dependencia de Sistemas Criticos</h3>
+                <p>Digitalizacao acelerada, nuvem, trabalho remoto e multiplos acessos sem controles proporcionais ao risco.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUCAO -->
+    <section id="solucao">
+        <div class="section-label">Proposta de Solucao</div>
+        <div class="section-title">Cyber Audit Radar: Inteligencia para Auditoria Preventiva</div>
+        <div class="solution-box">
+            <h3>Diagnostico Digital de Risco Hacker</h3>
+            <p>Uma plataforma interativa que transforma riscos tecnicos complexos em uma jornada visual, compreensivel e acionavel. O Cyber Audit Radar une auditoria, ciberseguranca, educacao digital, automacao e inteligencia artificial em uma experiencia simples e aplicavel.</p>
+            <p>A solucao funciona como modulo dentro do site para diagnosticar riscos ciberneticos, orientar boas praticas, gerar trilhas de auditoria e apoiar o auditor na priorizacao de controles.</p>
+        </div>
+        <div class="section-desc" style="margin-top: 2rem;">
+            <strong>Publico-alvo:</strong> Auditores internos, auditores de TI, gestores de riscos, equipes de seguranca da informacao, compliance, governanca corporativa e estudantes de pos-graduacao.
+        </div>
+    </section>
+
+    <!-- FUNCIONALIDADES -->
+    <section id="funcionalidades">
+        <div class="section-label">Funcionalidades Essenciais</div>
+        <div class="section-title">O que o Cyber Audit Radar oferece</div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#128203;</div>
+                <h3>Formulario Diagnostico</h3>
+                <p>Questionario de maturidade com perguntas sobre MFA, logs, gestao de acessos, backup, segregacao de funcao e monitoramento de APIs.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128200;</div>
+                <h3>Dashboard de Riscos</h3>
+                <p>Painel visual com riscos criticos, medios e baixos. Semaforo de maturidade e graficos interativos para tomada de decisao.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128736;</div>
+                <h3>Calculadora de Maturidade</h3>
+                <p>Pontuacao automatica baseada nas respostas, com classificacao de nivel de maturidade cibernetica da organizacao.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128221;</div>
+                <h3>Checklist de Auditoria</h3>
+                <p>Lista de verificacao baseada em COBIT 2019, ISO 27001 e NIST CSF para auditoria sistematica de controles.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128196;</div>
+                <h3>Geracao de Relatorio PDF</h3>
+                <p>Relatorio automatizado com diagnostico, recomendacoes de controles, plano de acao e evidencias para a auditoria.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#129302;</div>
+                <h3>Chatbot Educativo</h3>
+                <p>Assistente de IA para orientar usuarios sobre ciberseguranca, classificar riscos e sugerir controles adequados.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128218;</div>
+                <h3>Biblioteca de Controles</h3>
+                <p>Repositorio de controles mapeados por framework (COBIT, ISO, NIST) com recomendacoes contextualizadas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128274;</div>
+                <h3>Area de Evidencias</h3>
+                <p>Registro de evidencias, planos de acao e trilha de auditoria com rastreabilidade completa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JORNADA -->
+    <section id="jornada">
+        <div class="section-label">Solucao na Pratica</div>
+        <div class="section-title">Jornada do Usuario no Site</div>
+        <div class="journey-steps">
+            <div class="journey-step">
+                <div class="journey-step-number">1</div>
+                <div>
+                    <h4>Acessa a pagina "Diagnostico de Risco Hacker"</h4>
+                    <p>O usuario entra na area dedicada do site com interface intuitiva e fluxo guiado.</p>
+                </div>
+            </div>
+            <div class="journey-step">
+                <div class="journey-step-number">2</div>
+                <div>
+                    <h4>Responde ao questionario de maturidade</h4>
+                    <p>Perguntas objetivas sobre controles existentes: MFA, logs, gestao de acessos, backup, segregacao de funcao, classificacao da informacao.</p>
+                </div>
+            </div>
+            <div class="journey-step">
+                <div class="journey-step-number">3</div>
+                <div>
+                    <h4>Recebe pontuacao de risco</h4>
+                    <p>Algoritmo calcula o nivel de maturidade e classifica a organizacao em faixas de risco (critico, alto, medio, baixo).</p>
+                </div>
+            </div>
+            <div class="journey-step">
+                <div class="journey-step-number">4</div>
+                <div>
+                    <h4>Visualiza dashboard com riscos priorizados</h4>
+                    <p>Painel interativo com semaforo de riscos, graficos e matriz risco x controle para decisao imediata.</p>
+                </div>
+            </div>
+            <div class="journey-step">
+                <div class="journey-step-number">5</div>
+                <div>
+                    <h4>Recebe recomendacoes de controles</h4>
+                    <p>Sistema sugere controles prioritarios baseados nos gaps identificados, alinhados a COBIT, ISO 27001 e NIST.</p>
+                </div>
+            </div>
+            <div class="journey-step">
+                <div class="journey-step-number">6</div>
+                <div>
+                    <h4>Baixa relatorio em PDF e registra evidencias</h4>
+                    <p>Gera documento completo para auditoria, com plano de acao, responsaveis e prazos definidos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECNOLOGIAS -->
+    <section id="tecnologias">
+        <div class="section-label">Stack Tecnologico</div>
+        <div class="section-title">Tecnologias Sugeridas para Implementacao</div>
+        <div class="tech-grid">
+            <div class="tech-card">
+                <h4>Versao Simples</h4>
+                <ul>
+                    <li>WordPress ou Webflow</li>
+                    <li>Formulario com logica condicional</li>
+                    <li>Relatorio automatizado via Zapier</li>
+                    <li>Dashboard estatico com graficos</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>Versao Low-Code (Microsoft)</h4>
+                <ul>
+                    <li>Power Pages + Microsoft Forms</li>
+                    <li>Power Automate para fluxos</li>
+                    <li>Power BI + Microsoft Fabric</li>
+                    <li>Copilot Studio para chatbot</li>
+                    <li>SharePoint para evidencias</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>Versao Avancada</h4>
+                <ul>
+                    <li>Python + FastAPI</li>
+                    <li>Banco de dados relacional</li>
+                    <li>Streamlit ou Power BI embedado</li>
+                    <li>Integracao com SIEM e APIs</li>
+                    <li>Databricks para analytics</li>
+                </ul>
+            </div>
+            <div class="tech-card">
+                <h4>Versao com IA</h4>
+                <ul>
+                    <li>RAG com Copilot Studio</li>
+                    <li>Redes neurais para classificacao</li>
+                    <li>Hugging Face para NLP</li>
+                    <li>Orange Data Mining</li>
+                    <li>Agente de IA para automacao</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- KPIs -->
+    <section id="kpis">
+        <div class="section-label">Indicadores de Sucesso</div>
+        <div class="section-title">Como medir se a solucao funciona</div>
+        <div class="kpi-grid">
+            <div class="kpi-item">
+                <h4>Diagnosticos Realizados</h4>
+                <p>Numero de avaliacoes completas por mes</p>
+            </div>
+            <div class="kpi-item">
+                <h4>Riscos Criticos Identificados</h4>
+                <p>Percentual de organizacoes com gaps criticos</p>
+            </div>
+            <div class="kpi-item">
+                <h4>Tempo de Resposta</h4>
+                <p>Reducao do tempo medio de identificacao de vulnerabilidades</p>
+            </div>
+            <div class="kpi-item">
+                <h4>Evolucao da Maturidade</h4>
+                <p>Melhoria do score entre avaliacoes consecutivas</p>
+            </div>
+            <div class="kpi-item">
+                <h4>Planos de Acao Concluidos</h4>
+                <p>Taxa de implementacao das recomendacoes</p>
+            </div>
+            <div class="kpi-item">
+                <h4>Satisfacao do Usuario</h4>
+                <p>NPS e feedback qualitativo dos auditores</p>
+            </div>
+            <div class="kpi-item">
+                <h4>Reducao de Retrabalho</h4>
+                <p>Diminuicao de falhas recorrentes em auditorias</p>
+            </div>
+            <div class="kpi-item">
+                <h4>Taxa de Uso</h4>
+                <p>Frequencia de retorno e engajamento com a plataforma</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RISCOS -->
+    <section>
+        <div class="section-label">Governanca e Limitacoes</div>
+        <div class="section-title">Riscos e Cuidados da Solucao</div>
+        <div class="risks-grid">
+            <div class="risk-card">
+                <h4>LGPD e Privacidade</h4>
+                <p>Dados sensíveis exigem consentimento, anonimizacao, controle de acesso e armazenamento seguro conforme a Lei Geral de Protecao de Dados.</p>
+            </div>
+            <div class="risk-card">
+                <h4>Nao Substitui Pentest</h4>
+                <p>A plataforma funciona como triagem e diagnostico inicial. Nao substitui testes de penetracao, analise forense ou avaliacao tecnica especializada.</p>
+            </div>
+            <div class="risk-card">
+                <h4>Qualidade dos Dados</h4>
+                <p>Respostas imprecisas geram diagnosticos incorretos. Necessario validacao cruzada e treinamento dos respondentes.</p>
+            </div>
+            <div class="risk-card">
+                <h4>Manutencao Continua</h4>
+                <p>Frameworks e ameacas evoluem constantemente. A base de controles precisa de atualizacao periodica por especialistas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDES -->
+    <section>
+        <div class="section-label">Estrutura de Apresentacao</div>
+        <div class="section-title">Roteiro de 10 Slides para Pitch</div>
+        <div class="slides-grid">
+            <div class="slide-item">
+                <div class="slide-num">1</div>
+                <div><h4>Titulo do Pitch</h4><p>A Inovacao Tecnologica do Hacker - O Novo Desafio da Auditoria em TI</p></div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-num">2</div>
+                <div><h4>Problema</h4><p>O hacker moderno explora pessoas, processos e tecnologia simultaneamente</p></div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-num">3</div>
+                <div><h4>Novo Perfil do Hacker</h4><p>RaaS, IA ofensiva, deepfakes e engenharia social automatizada</p></div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-num">4</div>
+                <div><h4>Impacto na Auditoria</h4><p>Modelos reativos insuficientes, necessidade de abordagem continua</p></div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-num">5</div>
+                <div><h4>Publico-alvo</h4><p>Auditores, gestores de risco, compliance e seguranca da informacao</p></div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-num">6</div>
+                <div><h4>Proposta: Cyber Audit Radar</h4><p>Diagnostico digital, dashboard, checklist e geracao de evidencias</p></div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-num">7</div>
+                <div><h4>Funcionamento no Site</h4><p>Jornada do usuario: questionario, score, painel, recomendacoes, PDF</p></div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-num">8</div>
+                <div><h4>Beneficios e KPIs</h4><p>Priorizacao de riscos, reducao de retrabalho, auditoria preventiva</p></div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-num">9</div>
+                <div><h4>Governanca e Riscos</h4><p>LGPD, limitacoes, manutencao e qualidade dos dados</p></div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-num">10</div>
+                <div><h4>Conclusao e CTA</h4><p>A Auditoria de TI precisa ser continua, preventiva e baseada em evidencias</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section id="video">
+        <div class="video-section">
+            <div class="section-label">Apresentacao em Video</div>
+            <div class="section-title">Assista ao Pitch Completo</div>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">3 minutos | Narracao com voz masculina natural | Full HD</p>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/a6NcwOBiSv4" title="Pitch - A Inovacao Tecnologica do Hacker" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFERENCIAS -->
+    <section id="referencias">
+        <div class="references">
+            <div class="section-label">Embasamento Academico</div>
+            <h3>Referencias Bibliograficas (ABNT)</h3>
+            <ol class="ref-list">
+                <li>IBM SECURITY. Cost of a Data Breach Report 2024. Armonk: IBM Corporation, 2024.</li>
+                <li>SOPHOS. The State of Ransomware 2024. Oxford: Sophos Ltd., 2024.</li>
+                <li>ISACA. State of Cybersecurity 2024: Global Update on Workforce Efforts, Resources and Cyberoperations. Schaumburg: ISACA, 2024.</li>
+                <li>WORLD ECONOMIC FORUM. Global Cybersecurity Outlook 2024. Geneva: WEF, 2024.</li>
+                <li>SLASHNEXT. The State of Phishing 2024. Pleasanton: SlashNext Inc., 2024.</li>
+                <li>CYBERSECURITY VENTURES. 2023 Official Cybercrime Report. Northport: Cybersecurity Ventures, 2023.</li>
+                <li>ISACA. COBIT 2019 Framework: Governance and Management Objectives. Schaumburg: ISACA, 2019.</li>
+                <li>ISO/IEC. ISO/IEC 27001:2022 - Information security management systems. Geneva: ISO, 2022.</li>
+                <li>NIST. Cybersecurity Framework 2.0. Gaithersburg: National Institute of Standards and Technology, 2024.</li>
+                <li>NIST. Artificial Intelligence Risk Management Framework (AI RMF 1.0). Gaithersburg: NIST, 2023.</li>
+                <li>BRASIL. Lei n. 13.709, de 14 de agosto de 2018. Lei Geral de Protecao de Dados Pessoais (LGPD). Brasilia: Presidencia da Republica, 2018.</li>
+                <li>ROSE, S.; BORCHERT, O.; MITCHELL, S.; CONNELLY, S. Zero Trust Architecture. NIST Special Publication 800-207. Gaithersburg: NIST, 2020.</li>
+                <li>VERIZON. 2024 Data Breach Investigations Report. New York: Verizon Business, 2024.</li>
+                <li>GARTNER. Top Strategic Technology Trends 2024. Stamford: Gartner Inc., 2023.</li>
+                <li>GRAND VIEW RESEARCH. Cybersecurity Market Size Report, 2024-2030. San Francisco: Grand View Research, 2024.</li>
+                <li>MICROSOFT. Digital Defense Report 2024. Redmond: Microsoft Corporation, 2024.</li>
+                <li>CROWDSTRIKE. Global Threat Report 2024. Austin: CrowdStrike Holdings, 2024.</li>
+                <li>TOTAL ASSURE. The Role of AI in Cybersecurity Auditing. London: Total Assure Ltd., 2024.</li>
+                <li>HUGGING FACE. State of AI Report: NLP and Security Applications. San Francisco: Hugging Face Inc., 2024.</li>
+                <li>DEMSAR, J. et al. Orange: Data Mining Toolbox in Python. Journal of Machine Learning Research, v. 14, p. 2349-2353, 2013.</li>
+            </ol>
+        </div>
+    </section>
+
+    <footer>
+        <p>Pitch produzido para avaliacao do Modulo 3 - MBA em Auditoria - Descomplica Faculdade Digital | Maio 2026</p>
+        <p style="margin-top: 0.5rem;"><a href="https://gegodtransformacaodosdados.org/">gegodtransformacaodosdados.org</a></p>
+    </footer>
+</body>
+</html>
