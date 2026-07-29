@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBA em Segurança da Informação | Descomplica - Formação Digital Avançada</title>
+    <meta name="description" content="MBA em Segurança da Informação 100% online. Certificado pelo MEC. Aprenda Cybersecurity, Network Defense, Cloud Security e LGPD com os melhores profissionais do mercado.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #06b6d4;
+            --accent-dark: #0891b2;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --surface: #1e293b;
+            --surface-light: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            --gradient-dark: linear-gradient(135deg, #0f172a, #1e293b);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+            padding: 1rem 2rem;
+        }
+        nav .nav-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        nav .logo {
+            font-weight: 800; font-size: 1.1rem;
+            background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        nav .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        nav .nav-links a {
+            color: var(--text-muted); text-decoration: none; font-size: 0.85rem;
+            font-weight: 500; transition: color 0.3s;
+        }
+        nav .nav-links a:hover { color: var(--accent); }
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 6rem 2rem 4rem;
+            background: radial-gradient(ellipse at 30% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+            position: relative;
+        }
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 60 0 L 0 0 0 60' fill='none' stroke='rgba(6,182,212,0.04)' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grid)'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        .hero-content { max-width: 900px; text-align: center; position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 50px; padding: 0.5rem 1.2rem; margin-bottom: 2rem;
+            font-size: 0.8rem; color: var(--accent); font-weight: 500;
+        }
+        .hero-badge::before { content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
+            line-height: 1.1; margin-bottom: 1.5rem;
+        }
+        .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 2.5rem; }
+        .hero-author {
+            display: flex; align-items: center; gap: 1rem; justify-content: center;
+            margin-top: 2rem;
+        }
+        .hero-author img {
+            width: 56px; height: 56px; border-radius: 50%;
+            border: 2px solid var(--accent); object-fit: cover;
+        }
+        .hero-author-info { text-align: left; }
+        .hero-author-info strong { font-size: 0.95rem; display: block; }
+        .hero-author-info span { font-size: 0.8rem; color: var(--text-muted); }
+        /* SECTIONS */
+        section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-label {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px;
+            color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800;
+            line-height: 1.2; margin-bottom: 3rem;
+        }
+        /* METRICS */
+        .metrics-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;
+        }
+        .metric-card {
+            background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 12px; padding: 2rem; transition: all 0.3s;
+        }
+        .metric-card:hover {
+            background: rgba(30, 41, 59, 0.8); border-color: rgba(6, 182, 212, 0.5);
+            transform: translateY(-4px);
+        }
+        .metric-value {
+            font-size: 2.2rem; font-weight: 900; color: var(--accent); margin-bottom: 0.5rem;
+        }
+        .metric-label { font-size: 0.95rem; margin-bottom: 0.8rem; }
+        .metric-source { font-size: 0.75rem; color: var(--text-muted); }
+        /* PROBLEM CARDS */
+        .problem-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+        }
+        .problem-card {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(6, 182, 212, 0.05));
+            border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px;
+            padding: 2.5rem; transition: all 0.3s;
+        }
+        .problem-card:hover {
+            border-color: rgba(6, 182, 212, 0.5); transform: translateY(-4px);
+        }
+        .problem-card h3 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent); }
+        .problem-card p { font-size: 0.95rem; color: var(--text-muted); }
+        /* SOLUTION BOX */
+        .solution-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px;
+            padding: 3rem; text-align: center;
+        }
+        .solution-box h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .solution-box p { font-size: 1.05rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+        /* FEATURES */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;
+        }
+        .feature-card {
+            background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 12px; padding: 2.5rem; transition: all 0.3s;
+        }
+        .feature-card:hover {
+            background: rgba(30, 41, 59, 0.8); border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+        .feature-card h3 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--accent); }
+        .feature-card ul { list-style: none; }
+        .feature-card li {
+            padding: 0.5rem 0; padding-left: 1.5rem; position: relative;
+            font-size: 0.95rem; color: var(--text-muted);
+        }
+        .feature-card li::before {
+            content: '✓'; position: absolute; left: 0;
+            color: var(--success); font-weight: bold;
+        }
+        /* JOURNEY */
+        .journey-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;
+        }
+        .journey-step {
+            background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 12px; padding: 2rem; text-align: center;
+            position: relative;
+        }
+        .journey-step::before {
+            content: attr(data-step); position: absolute; top: -15px; left: 50%;
+            transform: translateX(-50%); width: 40px; height: 40px;
+            background: var(--accent); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; color: var(--primary);
+        }
+        .journey-step h3 { font-size: 1.15rem; margin-top: 1.5rem; margin-bottom: 1rem; }
+        .journey-step p { font-size: 0.9rem; color: var(--text-muted); }
+        /* TECH STACK */
+        .tech-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;
+        }
+        .tech-card {
+            background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 12px; padding: 1.5rem; text-align: center;
+            transition: all 0.3s;
+        }
+        .tech-card:hover {
+            background: rgba(30, 41, 59, 0.8); border-color: var(--accent);
+        }
+        .tech-card h4 { font-size: 1rem; margin-bottom: 0.8rem; color: var(--accent); }
+        .tech-card p { font-size: 0.85rem; color: var(--text-muted); }
+        /* KPI */
+        .kpi-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;
+        }
+        .kpi-card {
+            background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 12px; padding: 2rem; transition: all 0.3s;
+        }
+        .kpi-card:hover {
+            background: rgba(30, 41, 59, 0.8); border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+        .kpi-card h3 { font-size: 1.2rem; margin-bottom: 1rem; color: var(--accent); }
+        .kpi-card p { font-size: 0.9rem; color: var(--text-muted); }
+        /* VIDEO SECTION */
+        .video-section {
+            background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 12px; padding: 3rem; text-align: center;
+        }
+        .video-section h2 { font-size: 1.8rem; margin-bottom: 2rem; }
+        .video-container {
+            position: relative; width: 100%; max-width: 800px; margin: 0 auto;
+            padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;
+        }
+        .video-container iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: none; border-radius: 8px;
+        }
+        /* REFERENCES */
+        .ref-list { counter-reset: ref; list-style: none; }
+        .ref-list li {
+            counter-increment: ref; padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.82rem; color: var(--text-muted);
+            padding-left: 2.5rem; position: relative;
+        }
+        .ref-list li::before {
+            content: '[' counter(ref) ']'; position: absolute; left: 0;
+            color: var(--accent); font-weight: 600; font-family: 'JetBrains Mono', monospace;
+        }
+        /* FOOTER */
+        footer {
+            text-align: center; padding: 3rem 2rem;
+            border-top: 1px solid rgba(6, 182, 212, 0.1);
+            font-size: 0.8rem; color: var(--text-muted);
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav .nav-links { display: none; }
+            .hero { padding: 5rem 1.5rem 3rem; }
+            section { padding: 3rem 1.5rem; }
+            .solution-box { padding: 2rem; }
+            .video-section { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">MBA Segurança da Informação</div>
+            <div class="nav-links">
+                <a href="#impacto">Impacto</a>
+                <a href="#problema">Desafios</a>
+                <a href="#solucao">Solução</a>
+                <a href="#modulos">Módulos</a>
+                <a href="#jornada">Jornada</a>
+                <a href="#tecnologias">Tecnologias</a>
+                <a href="#diferenciais">Diferenciais</a>
+                <a href="#video">Vídeo</a>
+                <a href="#referencias">Referências</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Especialização de Alto Impacto</div>
+            <h1><span>MBA em Segurança</span><br>da Informação</h1>
+            <p>Proteja o futuro digital das organizações. Capacitação avançada em Cybersecurity, Network Defense, Cloud Security e LGPD. Aprenda com os melhores profissionais do mercado e acelere sua carreira com uma metodologia 100% digital e inovadora.</p>
+            <div class="hero-author">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663233141751/AHyAStzIgEdexeZi.png" alt="Diogo Grawingholt">
+                <div class="hero-author-info">
+                    <strong>🎓 Diogo Grawingholt</strong>
+                    <span>Especialista Sênior em IA | Gestor de TI</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPACTO -->
+    <section id="impacto">
+        <div class="section-label">Formação Estratégica</div>
+        <div class="section-title">Por que investir em Segurança da Informação agora</div>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value">360h</div>
+                <div class="metric-label">Carga horária completa e aprofundada</div>
+                <div class="metric-source">Estrutura do MBA Descomplica</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">100%</div>
+                <div class="metric-label">Online - Aprenda de qualquer lugar</div>
+                <div class="metric-source">Metodologia Descomplica</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">MEC</div>
+                <div class="metric-label">Diploma reconhecido e valorizado</div>
+                <div class="metric-source">Certificação Oficial</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">3</div>
+                <div class="metric-label">Módulos estratégicos integrados</div>
+                <div class="metric-source">Do básico à governança</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESAFIOS -->
+    <section id="problema">
+        <div class="section-label">O Cenário Atual</div>
+        <div class="section-title">Desafios da Era Digital</div>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <h3>Ameaças Crescentes</h3>
+                <p>O aumento exponencial de ciberataques exige profissionais altamente qualificados para proteger dados sensíveis das organizações.</p>
+            </div>
+            <div class="problem-card">
+                <h3>Complexidade Tecnológica</h3>
+                <p>A migração para a nuvem e a adoção de IoT criam novos vetores de ataque que precisam ser identificados e mitigados.</p>
+            </div>
+            <div class="problem-card">
+                <h3>Conformidade Legal</h3>
+                <p>A LGPD impõe regras rígidas sobre a privacidade de dados, exigindo governança, mapeamento e resposta a incidentes precisos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUÇÃO -->
+    <section id="solucao">
+        <div class="solution-box">
+            <h2>Formação Completa em Cibersegurança</h2>
+            <p>O MBA em Segurança da Informação prepara você para enfrentar os desafios do mundo digital, combinando teoria e prática em disciplinas essenciais como Cybersecurity Essentials, Network Defense e Cloud Security. Torne-se um especialista reconhecido pelo mercado.</p>
+        </div>
+    </section>
+
+    <!-- MÓDULOS -->
+    <section id="modulos">
+        <div class="section-label">Estrutura Curricular</div>
+        <div class="section-title">Três Módulos Estratégicos</div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Módulo 1: Fundamentos e Redes</h3>
+                <ul>
+                    <li>Cybersecurity Essentials</li>
+                    <li>Networking Essentials</li>
+                    <li>Endpoint Security</li>
+                    <li>Network Defense</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>Módulo 2: Gestão e Nuvem</h3>
+                <ul>
+                    <li>Cyber Threat Management</li>
+                    <li>CyberOps</li>
+                    <li>Network Security</li>
+                    <li>Cloud Security</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h3>Módulo 3: IoT e Privacidade</h3>
+                <ul>
+                    <li>IoT Security</li>
+                    <li>Computer Security Incident Response Teams</li>
+                    <li>Privacy and Data Protection (LGPD)</li>
+                    <li>Data Mapping & Privacy Governance</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- JORNADA -->
+    <section id="jornada">
+        <div class="section-label">Sua Trajetória</div>
+        <div class="section-title">A Jornada do Aluno</div>
+        <div class="journey-container">
+            <div class="journey-step" data-step="1">
+                <h3>Imersão Tecnológica</h3>
+                <p>Acesso imediato às aulas com metodologia Hyperlink e Superaulas dinâmicas.</p>
+            </div>
+            <div class="journey-step" data-step="2">
+                <h3>Prática e Ferramentas</h3>
+                <p>Uso de simuladores como Cisco Packet Tracer e ferramentas profissionais de proteção.</p>
+            </div>
+            <div class="journey-step" data-step="3">
+                <h3>Avaliação Contínua</h3>
+                <p>Provas objetivas e estudos de caso integradores para consolidar o aprendizado.</p>
+            </div>
+            <div class="journey-step" data-step="4">
+                <h3>Certificação e Mercado</h3>
+                <p>Diploma MEC reconhecido e microcertificados por disciplina concluída.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECNOLOGIAS -->
+    <section id="tecnologias">
+        <div class="section-label">Stack Técnico</div>
+        <div class="section-title">Tecnologias Abordadas</div>
+        <div class="tech-grid">
+            <div class="tech-card">
+                <h4>Redes</h4>
+                <p>Cisco Packet Tracer, Firewalls, Protocolos IP, Monitoramento de Tráfego.</p>
+            </div>
+            <div class="tech-card">
+                <h4>Sistemas Operacionais</h4>
+                <p>Segurança em Windows e Linux, Hardening, Controle de Acesso.</p>
+            </div>
+            <div class="tech-card">
+                <h4>Nuvem</h4>
+                <p>Arquitetura Cloud, Segurança em Nuvem, Gerenciamento de Identidade.</p>
+            </div>
+            <div class="tech-card">
+                <h4>Governança</h4>
+                <p>Frameworks CERT, LGPD, Resposta a Incidentes, Conformidade.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIFERENCIAIS -->
+    <section id="diferenciais">
+        <div class="section-label">Vantagens Exclusivas</div>
+        <div class="section-title">Diferenciais Descomplica</div>
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <h3>Método Hyperlink</h3>
+                <p>Estudo dinâmico e interativo com vídeos curtos, textos e podcasts de qualidade premium.</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Microcertificados</h3>
+                <p>Reconhecimento a cada disciplina concluída, demonstrando seu desenvolvimento contínuo.</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Lives Mensais</h3>
+                <p>Atualização constante com o mercado através de aulas ao vivo com especialistas.</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Gestão do Tempo</h3>
+                <p>Conteúdo bônus exclusivo para otimizar sua rotina e aumentar a produtividade.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VÍDEO -->
+    <section id="video">
+        <div class="video-section">
+            <h2>Conheça o Pitch do MBA</h2>
+            <div class="video-container">
+                <video width="100%" height="auto" controls style="border-radius: 8px;">
+                    <source src="/final_pitch_video.mp4" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFERÊNCIAS -->
+    <section id="referencias">
+        <div class="section-label">Fundamentação</div>
+        <div class="section-title">Referências Acadêmicas</div>
+        <ul class="ref-list">
+            <li>DESCOMPLICA. <em>Projeto Pedagógico de Curso: MBA em Segurança da Informação</em>. 2024.</li>
+            <li>BRASIL. Lei nº 13.709, de 14 de agosto de 2018. <em>Lei Geral de Proteção de Dados Pessoais (LGPD)</em>. Diário Oficial da União, Brasília, DF, 15 ago. 2018.</li>
+            <li>CERT. <em>CERT Resiliency Engineering Framework</em>. Disponível em: https://www.cert.org/. Acesso em: 2024.</li>
+            <li>CISCO. <em>Cisco Networking Academy - Cybersecurity Essentials</em>. Disponível em: https://www.netacad.com/. Acesso em: 2024.</li>
+            <li>INTERNATIONAL ORGANIZATION FOR STANDARDIZATION. <em>ISO/IEC 27001:2022 - Information Security Management Systems</em>. 2022.</li>
+        </ul>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2024 MBA em Segurança da Informação | Desenvolvido por <strong>Diogo Grawingholt</strong> | Certificado pelo MEC | <a href="https://www.descomplica.com.br">Descomplica</a></p>
+    </footer>
+</body>
+</html>
